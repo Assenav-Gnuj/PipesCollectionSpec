@@ -15,12 +15,12 @@ export default function AdminLayout({ children, title = 'Admin' }: AdminLayoutPr
 
   const navigation = [
     { name: 'Dashboard', href: '/admin', icon: '📊' },
+    { name: 'Analytics', href: '/admin/analytics', icon: '📈' },
     { name: 'Cachimbos', href: '/admin/pipes', icon: '🪈' },
     { name: 'Tabacos', href: '/admin/tobaccos', icon: '🌿' },
     { name: 'Acessórios', href: '/admin/accessories', icon: '🔧' },
     { name: 'Imagens', href: '/admin/images', icon: '🖼️' },
     { name: 'Comentários', href: '/admin/comments', icon: '💬' },
-    { name: 'Usuários', href: '/admin/users', icon: '👥' },
   ];
 
   const handleSignOut = async () => {
