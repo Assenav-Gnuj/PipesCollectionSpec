@@ -41,6 +41,11 @@ model Pipe {
   updatedAt    DateTime @updatedAt @map("updated_at")
   isActive     Boolean  @default(true) @map("is_active")
 
+  // Relationships
+  images   Image[]   @relation("PipeImages")
+  ratings  Rating[]  @relation("PipeRatings")
+  comments Comment[] @relation("PipeComments")
+
   @@map("pipes")
 }
 
@@ -59,6 +64,11 @@ model Tobacco {
   updatedAt    DateTime @updatedAt @map("updated_at")
   isActive     Boolean  @default(true) @map("is_active")
 
+  // Relationships
+  images   Image[]   @relation("TobaccoImages")
+  ratings  Rating[]  @relation("TobaccoRatings")
+  comments Comment[] @relation("TobaccoComments")
+
   @@map("tobaccos")
 }
 
@@ -72,6 +82,11 @@ model Accessory {
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
   isActive     Boolean  @default(true) @map("is_active")
+
+  // Relationships
+  images   Image[]   @relation("AccessoryImages")
+  ratings  Rating[]  @relation("AccessoryRatings")
+  comments Comment[] @relation("AccessoryComments")
 
   @@map("accessories")
 }
@@ -91,6 +106,11 @@ model Image {
   createdAt    DateTime @default(now()) @map("created_at")
   sortOrder    Int      @default(0) @map("sort_order")
 
+  // Relationships
+  pipe      Pipe?      @relation("PipeImages", fields: [itemId], references: [id], map: "image_pipe_fk")
+  tobacco   Tobacco?   @relation("TobaccoImages", fields: [itemId], references: [id], map: "image_tobacco_fk")
+  accessory Accessory? @relation("AccessoryImages", fields: [itemId], references: [id], map: "image_accessory_fk")
+
   @@unique([itemId, itemType, isFeatured], name: "one_featured_per_item")
   @@map("images")
 }
@@ -103,6 +123,11 @@ model Rating {
   rating    Int
   createdAt DateTime @default(now()) @map("created_at")
   ipAddress String?  @map("ip_address")
+
+  // Relationships
+  pipe      Pipe?      @relation("PipeRatings", fields: [itemId], references: [id], map: "rating_pipe_fk")
+  tobacco   Tobacco?   @relation("TobaccoRatings", fields: [itemId], references: [id], map: "rating_tobacco_fk")
+  accessory Accessory? @relation("AccessoryRatings", fields: [itemId], references: [id], map: "rating_accessory_fk")
 
   @@unique([itemId, itemType, sessionId], name: "one_rating_per_session")
   @@map("ratings")
@@ -122,7 +147,10 @@ model Comment {
   ipAddress   String?   @map("ip_address")
 
   // Relationships
-  moderator User? @relation("ModeratedBy", fields: [moderatedBy], references: [id], map: "comment_moderator_fk")
+  moderator User?      @relation("ModeratedBy", fields: [moderatedBy], references: [id], map: "comment_moderator_fk")
+  pipe      Pipe?      @relation("PipeComments", fields: [itemId], references: [id], map: "comment_pipe_fk")
+  tobacco   Tobacco?   @relation("TobaccoComments", fields: [itemId], references: [id], map: "comment_tobacco_fk")
+  accessory Accessory? @relation("AccessoryComments", fields: [itemId], references: [id], map: "comment_accessory_fk")
 
   @@map("comments")
 }
