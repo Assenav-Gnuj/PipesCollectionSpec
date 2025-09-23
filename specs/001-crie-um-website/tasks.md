@@ -12,21 +12,22 @@
 - Project structure: Repository root with `src/`, `pages/`, `prisma/`, `tests/`
 
 ## Phase 3.1: Project Setup
-- [ ] T001 Create Next.js 14 project with TypeScript at repository root
-- [ ] T002 Install dependencies: Prisma, NextAuth.js, Tailwind CSS, Zod validation
-- [ ] T003 [P] Configure ESLint, Prettier, and TypeScript strict mode in `tsconfig.json`
-- [ ] T004 [P] Set up Tailwind CSS configuration in `tailwind.config.js`
-- [ ] T005 Create Docker configuration files: `Dockerfile`, `docker-compose.yml`, `.dockerignore`
-- [ ] T006 [P] Configure environment variables template in `.env.example`
+- [x] T001 Create Next.js 14 project with TypeScript at repository root
+- [x] T002 Install dependencies: Prisma, NextAuth.js, Tailwind CSS, Zod validation
+- [x] T003 [P] Configure ESLint, Prettier, and TypeScript strict mode in `tsconfig.json`
+- [x] T004 [P] Set up Tailwind CSS configuration in `tailwind.config.js`
+- [x] T005 Create Docker configuration files: `Dockerfile`, `docker-compose.yml`, `.dockerignore`
+- [x] T006 [P] Configure environment variables template in `.env.example`
 
 ## Phase 3.2: Database & Schema (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T007 Create Prisma schema in `prisma/schema.prisma` with all entities (User, Pipe, Tobacco, Accessory, Image, Rating, Comment)
-- [ ] T008 [P] Contract test GET /api/pipes in `tests/contract/test_pipes_get.test.ts`
-- [ ] T009 [P] Contract test GET /api/pipes/[id] in `tests/contract/test_pipes_detail.test.ts`
-- [ ] T010 [P] Contract test GET /api/tobaccos in `tests/contract/test_tobaccos_get.test.ts`
-- [ ] T011 [P] Contract test GET /api/tobaccos/[id] in `tests/contract/test_tobaccos_detail.test.ts`
-- [ ] T012 [P] Contract test POST /api/auth/signin in `tests/contract/test_auth_signin.test.ts`
+## Phase 3.2: Database Schema
+- [x] T007 Create Prisma schema in `prisma/schema.prisma` with all entities from data model
+- [x] T008 [P] Contract test GET /api/pipes in `tests/contract/test_pipes_get.test.ts`
+- [x] T009 [P] Contract test GET /api/pipes/[id] in `tests/contract/test_pipes_detail.test.ts`
+- [x] T010 [P] Contract test GET /api/tobaccos in `tests/contract/test_tobaccos_get.test.ts`
+- [x] T011 [P] Contract test GET /api/tobaccos/[id] in `tests/contract/test_tobaccos_detail.test.ts`
+- [x] T012 [P] Contract test POST /api/auth/signin in `tests/contract/test_auth_signin.test.ts`
 - [ ] T013 [P] Contract test POST /api/[type]/[id]/rating in `tests/contract/test_rating_post.test.ts`
 - [ ] T014 [P] Contract test POST /api/[type]/[id]/comments in `tests/contract/test_comments_post.test.ts`
 - [ ] T015 [P] Contract test POST /api/admin/pipes in `tests/contract/test_admin_pipes_post.test.ts`
@@ -45,21 +46,21 @@
 - [ ] T026 [P] Integration test comment moderation workflow in `tests/integration/test_comment_moderation.test.ts`
 
 ## Phase 3.4: Database Implementation (ONLY after tests are failing)
-- [ ] T027 Initialize Prisma client and run initial migration
-- [ ] T028 Create database seed script in `prisma/seed.ts` with sample data
-- [ ] T029 [P] Implement Prisma models and relations validation
-- [ ] T030 [P] Create database connection utility in `src/lib/db.ts`
-- [ ] T031 [P] Set up Redis connection utility in `src/lib/redis.ts`
+- [x] T027 Initialize Prisma client and run initial migration
+- [x] T028 Create database seed script in `prisma/seed.ts` with sample data
+- [x] T029 [P] Implement Prisma models and relations validation
+- [x] T030 [P] Create database connection utility in `src/lib/db.ts`
+- [x] T031 [P] Set up Redis connection utility in `src/lib/redis.ts`
 
 ## Phase 3.5: API Routes Implementation
-- [ ] T032 [P] Implement GET /api/pipes endpoint in `pages/api/pipes/index.ts`
-- [ ] T033 [P] Implement GET /api/pipes/[id] endpoint in `pages/api/pipes/[id].ts`
-- [ ] T034 [P] Implement GET /api/tobaccos endpoint in `pages/api/tobaccos/index.ts`
-- [ ] T035 [P] Implement GET /api/tobaccos/[id] endpoint in `pages/api/tobaccos/[id].ts`
-- [ ] T036 [P] Implement GET /api/accessories endpoint in `pages/api/accessories/index.ts`
+- [x] T032 [P] Implement GET /api/pipes endpoint in `pages/api/pipes/index.ts`
+- [x] T033 [P] Implement GET /api/pipes/[id] endpoint in `pages/api/pipes/[id].ts`
+- [x] T034 [P] Implement GET /api/tobaccos endpoint in `pages/api/tobaccos/index.ts`
+- [x] T035 [P] Implement GET /api/tobaccos/[id] endpoint in `pages/api/tobaccos/[id].ts`
+- [x] T036 [P] Implement GET /api/accessories endpoint in `pages/api/accessories/index.ts`
 - [ ] T037 [P] Implement GET /api/accessories/[id] endpoint in `pages/api/accessories/[id].ts`
-- [ ] T038 [P] Implement GET /api/search endpoint in `pages/api/search.ts`
-- [ ] T039 Implement POST /api/auth/[...nextauth] with NextAuth.js in `pages/api/auth/[...nextauth].ts`
+- [x] T038 [P] Implement GET /api/search endpoint in `pages/api/search.ts`
+- [x] T039 Implement POST /api/auth/[...nextauth] with NextAuth.js in `pages/api/auth/[...nextauth].ts`
 - [ ] T040 [P] Implement POST /api/[type]/[id]/rating endpoint in `pages/api/[type]/[id]/rating.ts`
 - [ ] T041 [P] Implement POST /api/[type]/[id]/comments endpoint in `pages/api/[type]/[id]/comments.ts`
 - [ ] T042 [P] Implement GET /api/[type]/[id]/comments endpoint in `pages/api/[type]/[id]/comments.ts`

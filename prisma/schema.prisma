@@ -1,0 +1,134 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String    @map("password_hash")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  lastLogin    DateTime? @map("last_login")
+  isActive     Boolean   @default(true) @map("is_active")
+
+  // Relationships
+  moderatedComments Comment[] @relation("ModeratedBy")
+
+  @@map("users")
+}
+
+model Pipe {
+  id           String   @id @default(cuid())
+  name         String
+  brand        String
+  material     String
+  shape        String
+  finish       String
+  filterType   String   @map("filter_type")
+  stemMaterial String   @map("stem_material")
+  country      String
+  observations String?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  isActive     Boolean  @default(true) @map("is_active")
+
+  @@map("pipes")
+}
+
+model Tobacco {
+  id           String   @id @default(cuid())
+  name         String
+  brand        String
+  blendType    String   @map("blend_type")
+  contents     String
+  cut          String
+  strength     Int
+  roomNote     Int      @map("room_note")
+  taste        Int
+  observations String?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  isActive     Boolean  @default(true) @map("is_active")
+
+  @@map("tobaccos")
+}
+
+model Accessory {
+  id           String   @id @default(cuid())
+  name         String
+  brand        String?
+  category     String
+  description  String
+  observations String?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  isActive     Boolean  @default(true) @map("is_active")
+
+  @@map("accessories")
+}
+
+model Image {
+  id           String   @id @default(cuid())
+  itemId       String   @map("item_id")
+  itemType     ItemType @map("item_type")
+  filename     String   @unique
+  originalName String   @map("original_name")
+  fileSize     Int      @map("file_size")
+  mimeType     String   @map("mime_type")
+  width        Int
+  height       Int
+  isFeatured   Boolean  @default(false) @map("is_featured")
+  altText      String   @map("alt_text")
+  createdAt    DateTime @default(now()) @map("created_at")
+  sortOrder    Int      @default(0) @map("sort_order")
+
+  @@unique([itemId, itemType, isFeatured], name: "one_featured_per_item")
+  @@map("images")
+}
+
+model Rating {
+  id        String   @id @default(cuid())
+  itemId    String   @map("item_id")
+  itemType  ItemType @map("item_type")
+  sessionId String   @map("session_id")
+  rating    Int
+  createdAt DateTime @default(now()) @map("created_at")
+  ipAddress String?  @map("ip_address")
+
+  @@unique([itemId, itemType, sessionId], name: "one_rating_per_session")
+  @@map("ratings")
+}
+
+model Comment {
+  id          String    @id @default(cuid())
+  itemId      String    @map("item_id")
+  itemType    ItemType  @map("item_type")
+  content     String
+  authorName  String?   @map("author_name")
+  sessionId   String    @map("session_id")
+  isApproved  Boolean   @default(false) @map("is_approved")
+  moderatedBy String?   @map("moderated_by")
+  moderatedAt DateTime? @map("moderated_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  ipAddress   String?   @map("ip_address")
+
+  // Relationships
+  moderator User? @relation("ModeratedBy", fields: [moderatedBy], references: [id], map: "comment_moderator_fk")
+
+  @@map("comments")
+}
+
+enum ItemType {
+  pipe
+  tobacco
+  accessory
+}
