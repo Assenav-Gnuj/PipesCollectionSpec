@@ -93,8 +93,8 @@
 - [x] T063: Create TobaccoProfileChart component for tobacco characteristics (DONE)
 
 ## Phase 3.8: Public Pages Implementation
-- [ ] T064 Create homepage in `pages/index.tsx` with hero section and navigation buttons
-- [ ] T065 Create pipes listing page in `pages/cachimbos/index.tsx` with filtering and grid
+- [x] T064 Create homepage in `pages/index.tsx` with hero section and navigation buttons (DONE)
+- [x] T065 Create pipes listing page in `pages/cachimbos/index.tsx` with filtering and grid (DONE)
 - [ ] T066 Create pipe detail page in `pages/cachimbos/[id].tsx` with specifications and interactions
 - [ ] T067 Create tobaccos listing page in `pages/tabacos/index.tsx` with filtering and grid
 - [ ] T068 Create tobacco detail page in `pages/tabacos/[id].tsx` with profile charts and interactions

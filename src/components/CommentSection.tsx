@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -20,7 +19,7 @@ interface CommentSectionProps {
 }
 
 export default function CommentSection({ itemType, itemId, className = '' }: CommentSectionProps) {
-  const { data: session } = useSession();
+  const session = null; // Temporariamente desabilitado para SSG
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
   const [isLoading, setIsLoading] = useState(true);
