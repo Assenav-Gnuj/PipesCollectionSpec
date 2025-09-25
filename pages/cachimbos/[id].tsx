@@ -322,8 +322,19 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     return {
       props: {
         pipe: {
-          ...pipe,
+          id: pipe.id,
+          name: pipe.name,
+          brand: pipe.brand,
+          material: pipe.material,
+          shape: pipe.shape,
+          finish: pipe.finish,
+          filterType: pipe.filterType,
+          stemMaterial: pipe.stemMaterial,
+          country: pipe.country,
+          observations: pipe.observations,
+          isActive: pipe.isActive,
           createdAt: pipe.createdAt.toISOString(),
+          updatedAt: pipe.updatedAt.toISOString(),
         },
         images: imageUrls,
         averageRating: Number(averageRating.toFixed(1)),

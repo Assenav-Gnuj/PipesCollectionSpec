@@ -99,7 +99,7 @@ export default function HomePage({
 
             {/* Hero Image */}
             <div className="relative">
-              <div className="relative h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative hero-image-container h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/images/hero-pipes-collection.jpg"
                   alt="Coleção de cachimbos artesanais"
