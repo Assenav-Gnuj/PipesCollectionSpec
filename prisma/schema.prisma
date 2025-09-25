@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,122 +8,110 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(cuid())
-  email        String    @unique
-  name         String
-  passwordHash String    @map("password_hash")
-  createdAt    DateTime  @default(now()) @map("created_at")
-  updatedAt    DateTime  @updatedAt @map("updated_at")
-  lastLogin    DateTime? @map("last_login")
-  isActive     Boolean   @default(true) @map("is_active")
-
-  // Relationships
+  id                String    @id @default(cuid())
+  email             String    @unique
+  name              String
+  passwordHash      String    @map("password_hash")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  lastLogin         DateTime? @map("last_login")
+  isActive          Boolean   @default(true) @map("is_active")
   moderatedComments Comment[] @relation("ModeratedBy")
 
   @@map("users")
 }
 
 model Pipe {
-  id           String   @id @default(cuid())
+  id           String    @id @default(cuid())
   name         String
   brand        String
   material     String
   shape        String
   finish       String
-  filterType   String   @map("filter_type")
-  stemMaterial String   @map("stem_material")
+  filterType   String    @map("filter_type")
+  stemMaterial String    @map("stem_material")
   country      String
   observations String?
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-  isActive     Boolean  @default(true) @map("is_active")
-
-  // Relationships
-  images   Image[]   @relation("PipeImages")
-  ratings  Rating[]  @relation("PipeRatings")
-  comments Comment[] @relation("PipeComments")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  isActive     Boolean   @default(true) @map("is_active")
+  comments     Comment[] @relation("PipeComments")
+  images       Image[]   @relation("PipeImages")
+  ratings      Rating[]  @relation("PipeRatings")
 
   @@map("pipes")
 }
 
 model Tobacco {
-  id           String   @id @default(cuid())
+  id           String    @id @default(cuid())
   name         String
   brand        String
-  blendType    String   @map("blend_type")
+  blendType    String    @map("blend_type")
   contents     String
   cut          String
   strength     Int
-  roomNote     Int      @map("room_note")
+  roomNote     Int       @map("room_note")
   taste        Int
   observations String?
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-  isActive     Boolean  @default(true) @map("is_active")
-
-  // Relationships
-  images   Image[]   @relation("TobaccoImages")
-  ratings  Rating[]  @relation("TobaccoRatings")
-  comments Comment[] @relation("TobaccoComments")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  isActive     Boolean   @default(true) @map("is_active")
+  comments     Comment[] @relation("TobaccoComments")
+  images       Image[]   @relation("TobaccoImages")
+  ratings      Rating[]  @relation("TobaccoRatings")
 
   @@map("tobaccos")
 }
 
 model Accessory {
-  id           String   @id @default(cuid())
+  id           String    @id @default(cuid())
   name         String
   brand        String?
   category     String
   description  String
   observations String?
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-  isActive     Boolean  @default(true) @map("is_active")
-
-  // Relationships
-  images   Image[]   @relation("AccessoryImages")
-  ratings  Rating[]  @relation("AccessoryRatings")
-  comments Comment[] @relation("AccessoryComments")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  isActive     Boolean   @default(true) @map("is_active")
+  comments     Comment[] @relation("AccessoryComments")
+  images       Image[]   @relation("AccessoryImages")
+  ratings      Rating[]  @relation("AccessoryRatings")
 
   @@map("accessories")
 }
 
 model Image {
-  id           String   @id @default(cuid())
-  itemId       String   @map("item_id")
-  itemType     ItemType @map("item_type")
-  filename     String   @unique
-  originalName String   @map("original_name")
-  fileSize     Int      @map("file_size")
-  mimeType     String   @map("mime_type")
+  id           String    @id @default(cuid())
+  itemId       String    @map("item_id")
+  itemType     ItemType  @map("item_type")
+  filename     String    @unique
+  originalName String    @map("original_name")
+  fileSize     Int       @map("file_size")
+  mimeType     String    @map("mime_type")
   width        Int
   height       Int
-  isFeatured   Boolean  @default(false) @map("is_featured")
-  altText      String   @map("alt_text")
-  createdAt    DateTime @default(now()) @map("created_at")
-  sortOrder    Int      @default(0) @map("sort_order")
-
-  // Relationships
-  pipe      Pipe?      @relation("PipeImages", fields: [itemId], references: [id], map: "image_pipe_fk")
-  tobacco   Tobacco?   @relation("TobaccoImages", fields: [itemId], references: [id], map: "image_tobacco_fk")
-  accessory Accessory? @relation("AccessoryImages", fields: [itemId], references: [id], map: "image_accessory_fk")
+  isFeatured   Boolean   @default(false) @map("is_featured")
+  altText      String    @map("alt_text")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  sortOrder    Int       @default(0) @map("sort_order")
+  pipe         Pipe?     @relation("PipeImages", fields: [itemId], references: [id], map: "image_pipe_fk")
+  tobacco      Tobacco?  @relation("TobaccoImages", fields: [itemId], references: [id], map: "image_tobacco_fk")
+  accessory    Accessory? @relation("AccessoryImages", fields: [itemId], references: [id], map: "image_accessory_fk")
 
   @@unique([itemId, itemType, isFeatured], name: "one_featured_per_item")
   @@map("images")
 }
 
 model Rating {
-  id        String   @id @default(cuid())
-  itemId    String   @map("item_id")
-  itemType  ItemType @map("item_type")
-  sessionId String   @map("session_id")
+  id        String    @id @default(cuid())
+  itemId    String    @map("item_id")
+  itemType  ItemType  @map("item_type")
+  sessionId String    @map("session_id")
   rating    Int
-  createdAt DateTime @default(now()) @map("created_at")
-  ipAddress String?  @map("ip_address")
-
-  // Relationships
-  pipe      Pipe?      @relation("PipeRatings", fields: [itemId], references: [id], map: "rating_pipe_fk")
-  tobacco   Tobacco?   @relation("TobaccoRatings", fields: [itemId], references: [id], map: "rating_tobacco_fk")
+  createdAt DateTime  @default(now()) @map("created_at")
+  ipAddress String?   @map("ip_address")
+  pipe      Pipe?     @relation("PipeRatings", fields: [itemId], references: [id], map: "rating_pipe_fk")
+  tobacco   Tobacco?  @relation("TobaccoRatings", fields: [itemId], references: [id], map: "rating_tobacco_fk")
   accessory Accessory? @relation("AccessoryRatings", fields: [itemId], references: [id], map: "rating_accessory_fk")
 
   @@unique([itemId, itemType, sessionId], name: "one_rating_per_session")
@@ -145,12 +130,10 @@ model Comment {
   moderatedAt DateTime? @map("moderated_at")
   createdAt   DateTime  @default(now()) @map("created_at")
   ipAddress   String?   @map("ip_address")
-
-  // Relationships
-  moderator User?      @relation("ModeratedBy", fields: [moderatedBy], references: [id], map: "comment_moderator_fk")
-  pipe      Pipe?      @relation("PipeComments", fields: [itemId], references: [id], map: "comment_pipe_fk")
-  tobacco   Tobacco?   @relation("TobaccoComments", fields: [itemId], references: [id], map: "comment_tobacco_fk")
-  accessory Accessory? @relation("AccessoryComments", fields: [itemId], references: [id], map: "comment_accessory_fk")
+  pipe        Pipe?     @relation("PipeComments", fields: [itemId], references: [id], map: "comment_pipe_fk")
+  tobacco     Tobacco?  @relation("TobaccoComments", fields: [itemId], references: [id], map: "comment_tobacco_fk")
+  accessory   Accessory? @relation("AccessoryComments", fields: [itemId], references: [id], map: "comment_accessory_fk")
+  moderator   User?     @relation("ModeratedBy", fields: [moderatedBy], references: [id], map: "comment_moderator_fk")
 
   @@map("comments")
 }
