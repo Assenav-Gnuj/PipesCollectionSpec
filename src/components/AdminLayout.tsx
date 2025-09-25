@@ -36,8 +36,14 @@ export default function AdminLayout({ children, title = 'Admin' }: AdminLayoutPr
   }
 
   if (!session) {
-    router.push('/admin/login');
-    return null;
+    if (typeof window !== 'undefined') {
+      router.push('/admin/login');
+    }
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600"></div>
+      </div>
+    );
   }
 
   return (

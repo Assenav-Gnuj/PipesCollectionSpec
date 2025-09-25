@@ -25,6 +25,7 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (!user || !user.isActive) {
+            console.log('User not found or inactive:', { user });
             return null;
           }
 
@@ -34,6 +35,7 @@ export const authOptions: NextAuthOptions = {
           );
 
           if (!isPasswordValid) {
+            console.log('Invalid password for user:', credentials.email);
             return null;
           }
 
